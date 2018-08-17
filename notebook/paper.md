@@ -1,28 +1,22 @@
-# todo 
+A. How to set the border (or threshold value) to separate region-1 and region-2?
 
---- 현재 상황은 
+fitness error는 실험데이터를 설명하는 모델의 능력을 의미한다. 분석된 2173개의 모델에 대해서 fitness error를 기준으로 정렬하였다. 여기서 가장 좋은 구조를 선택하는 방법이 있을 수 있지만 fitness error는 작을수록 그 격차가 줄어들기 때문에 가장 fitness error가 작은 모델을 선택하는 것은 robust하지는 않을 것이다. 약 650을 기준으로 해서 에러가 작은 영역인 region-1과 에러가 큰 영역인 region-2으로 모델 스페이스를 구분할 수 있다. 여기서 region-1과 region-2를 구분하는 경계는 휴리스틱하게 결정된 것이다. 
 
-수학모델을 설명하는 부분에 대해서 전반적으로 설명을 개선해야하지 않나 하는 생각이 들었습니다. 예를 들면, 시너지스코어나 코어스트럭쳐와 같은 용어들이 이해되기 쉽도록 대체할 수 있는 용어가 있다면 교체해야 하고, 분석내용을 보다 쉽게 이해할수 있도록 하는 설명방식을 고민할 필요가 있습니다.  
+B. 경계의 변화에 대해서 결과가 일정하게 나오는가?
 
-리뷰어가 지적한 문제들 중에서 (모델링 부분에서) 가장 중요한 부분은 Fig 2의 region-1, region-2를 구분하는 경계에 대한 다음과 같은 3개의 문제라고 생각이 되었습니다.  
+하나 이상의 경계가 제시되어질 수 있기 때문에 우리는 경계가 변화함에 따라서 결과가 어떻게 변화하는지를 조사하였다. 경계치가 500에서 750까지 [500,550,600,650,700,750], 그리고 코어구조에 포함되는 link의 개수는 [2,3,4]를 고려하였고 fus3->ste11, fus3->ste7 피드백을 몇개나 포함하는지를 카운트하였다. 그 결과 두개의 피드백을 가지는 구조가 평균적으로 가장 높은 A_R(relative appearance)를 가진다는 것을 확인하였다. 
 
-a. 경계를 어떻게 설정하였는가? 
+C. 경계의 위치를 최적화할 수 있는가?  
 
-b. 경계의 변화에 대해서 결과가 일정하게 나오는가?
-
-c. 경계의 위치를 최적화할 수 있는가?  
-
-경계의 설정이 합리적인 방식으로 이루어 지지 않았다면, 그리고 결과에 대해서 robust하지 않다면 이로부터 도출되는 모든 다른 결과들이 유효하지 않을 것이라고 리뷰어가 지적하였습니다. 제 생각에도 언제든 지적받을 수 있는 문제로 생각이 됩니다. 질문 b에 대해서는 답변을 하기 위해 계산코드를 작성하고 있는 중에 있습니다. c의 경우에는 아이디어를 좀 개발해야할 필요가 있습니다. c에 대해서 답변을 하는 것이 가능하다면 a에 대해서도 답변이 될 것입니다. 
-
-진행방향..
-
-오늘 중으로 이메일 회람하기
-
-핵심 리뷰어 코멘트 - 리마인드. 
-
-2.3일
+우리는 fitness error가 상대적으로 크게 감소하는 구간과 더이상 감소하지 않은 구간의 경계를 휴리스틱하게 정의하였지만, 이것은 fitting function의 변화율이 가장 작은 지점을 취함으로써 최적화 되어질 수 있다. 
 
 --- 
+
+모델링 접근방법 기술 
+
+시너지 스코어 명칭, 정의를 좀더 명확히 하기 
+
+
 
 
 Reviewer #4
@@ -39,6 +33,10 @@ core structure analysis identifies a set of invariable edges that defines core s
 e has the smallest prediction error by measuring fitness score of intact structure, core structure analysis identifies a set of invariable edges that defines core structure (Extended Figure 5A). The core structure is identified as follows: 
 
 시너지 스코어의 정의 - 
+
+
+--- 
+memo: 
 
 
 > The authors then try to fit a rather generic model of the MAPK signaling pathway where they added additional edges to the model, and ranked these models based on the goodness of fit. The details of this analysis are unclear, as they are not described in the methods. 
